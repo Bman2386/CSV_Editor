@@ -1,0 +1,18 @@
+{
+  "name": "report_cleaner",
+  "version": "1.0.0",
+  "description": "The purpose of this app is to clean data in CSV files. More specificly to remove duplicates in 2 CSV files. It does this by 1st converting the CSV (Comma Seperated Values) into a JSON (JavaScript Object Notation)file (so we can manipulate the data). The file here removes duplicate entries, like if you want to extract the old donors from an up to date donor list. Feel free to change the code to modify whatever you need to. Then it converts the new JSON file back to a CSV so  non-tech people will be able to review the data.",
+  "main": "convertToCSV.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "json": "node convertToJSON.js",
+    "clean": "node dataClean.js",
+    "export_data": "node convertToCSV.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-writer": "^1.6.0"
+  }
+}
