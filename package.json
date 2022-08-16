@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "json": "node convertToJSON.js",
     "clean": "node dataClean.js",
-    "export_data": "node convertToCSV.js"
+    "cc": "node countAndClean.js",
+    "count": "node countData.js",
+    "csv": "node convertToCSV.js"
   },
   "keywords": [],
   "author": "",

@@ -3,11 +3,13 @@
 // Reading the file using default
 // fs npm package
 const fs = require("fs");
+let filepath = "./ignore/"
 //////////////////////////////////////////////
 //filename of file to convert goes here
-let fileName = "Albemarle 1-1_7-25.csv"
+ fileName = "2022-07-25.csv"
 //////////////////////////////////////////////
-csv = fs.readFileSync(fileName) 
+filepath += fileName
+csv = fs.readFileSync(filepath) 
 
 // Convert the data to String and
 // split it in an array
@@ -46,6 +48,7 @@ for (let i = 1; i < array.length - 1; i++) {
   // we replace them with pipe |
   // We keep adding the characters we
   // traverse to a String s
+ 
   let flag = 0
   for (let ch of str) {
     if (ch === '"' && flag === 0) {
@@ -60,18 +63,21 @@ for (let i = 1; i < array.length - 1; i++) {
   // and store the values in a properties array
   let properties = s.split("|")
   if (properties.length < 2){
-    properties =s.split(',')
-    if (properties[0].includes('\n')){
-        let newProp = properties[0].split('\n')
-        properties[0] = newProp[1]
-    }
+    properties = s.split(',')
+    
   }
+  if (properties[0].includes('\n')){
+    let newProp = properties[0].split('\n')
+    properties[0] = newProp[1]
+}
   // For each header, if the value contains
   // multiple comma separated data, then we
   // store it in the form of array otherwise
   // directly the value is stored
     for (let j in headers) {
-    if (properties[j].includes(",")) {
+    if (properties[j] === undefined){
+        obj[headers[j]] = 'null'
+    } else if (properties[j].includes(",")) {
       obj[headers[j]] = properties[j]
         .split(",").map(item => item.trim())
     }
