@@ -15,7 +15,8 @@ non-tech people will be able to review the data.
 - make sure the files you wanted to work with have been converted to JSON
 - change lines 3 & 4 of "dataClean.js" to files you want to compare (but keep the './' this is the path to the file)
 - run ```npm run clean``` (is currently set to remove duplicates, you can change to whatever you need it to)
-- run ```convertToCSV.js``` (converts NEW JSON file to CSV)
+- Other Commands include ```npm run cc``` (creates a json file based on how you clean data in countAndClean.js) ```npm run count``` counts data you specify in countData.js
+- run ```npm run csv``` (converts NEW JSON file to CSV)
 
 ## Requirements
 - Node
