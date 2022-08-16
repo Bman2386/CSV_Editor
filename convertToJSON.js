@@ -6,7 +6,7 @@ const fs = require("fs");
 let filepath = "./ignore/"
 //////////////////////////////////////////////
 //filename of file to convert goes here
- fileName = "2022-07-25.csv"
+ fileName = "test2.csv"
 //////////////////////////////////////////////
 filepath += fileName
 csv = fs.readFileSync(filepath) 
@@ -94,5 +94,5 @@ for (let i = 1; i < array.length - 1; i++) {
 // generate the JSON output file.
 let json = JSON.stringify(result);
 let newFile = fileName.split('.');
-fs.writeFileSync(`${newFile[0]}.json`, json);
+fs.writeFileSync(`./ignore/${newFile[0]}.json`, json);
 console.log(`file ${fileName} converted to JSON!` )

@@ -1,5 +1,5 @@
 //required imports
-const cleanData = require('./cleanData.json')
+const cleanData = require('./ignore/cleanData.json')
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const categoryData = []
@@ -14,7 +14,7 @@ const  setCategory=(data)=>{
 setCategory(cleanData)
 
 const csvWriter = createCsvWriter({
-    path: './export_data.csv',
+    path: './ignore/export_data.csv',
     header: categoryData.map((item)=>  ({id: item, title: item}))
 })
 
