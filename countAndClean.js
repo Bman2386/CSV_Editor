@@ -1,5 +1,11 @@
 console.log('cleaning data')
+/////////////////////
+const file = 'pen.json'
 // require files here!
+///////////////////////
+//Don't change this import though!
+const fs = require("fs");
+
 const countTypes = (precinct)=> {
     if (precinct.result_short_name === 'Canvassed') return 'Canvassed'
     if (precinct.result_short_name === 'Refused') return 'Refused'
@@ -16,19 +22,26 @@ const countTypes = (precinct)=> {
     if (precinct.contact_type === 'SMS Text') return 'Texted'
 }
    
-const oldData = require('./ignore/test2.json')
+const oldData = require(`./ignore/${file}`)
 if (oldData === undefined) {
     console.log("Can't find Data!")
     return
 }
-//Don't change this import though!
-const fs = require("fs");
 
-const newJSONFile = [];
+
+const newJSONFile = []
 const newData = {}
-//organize data here
+const previous = {}
+// only grab last attempt, overwrite old attempts
 for (data in oldData){
     let curr = oldData[data]
+    let id = curr.myv_van_id
+    previous[id] = curr
+}
+
+//organize data here (grouping by precinct)
+for (data in previous){
+    let curr = previous[data]
     let precinct = curr.precinct_code
     let type = countTypes(curr)
     if (newData[precinct]){
@@ -55,8 +68,14 @@ for (data in oldData){
 for (data in newData){
     newJSONFile.push(newData[data])
 }
-
-
+// sort results by county
+newJSONFile.sort((a,b) => {
+    if (a.county < b.county) return -1
+    if (a.county > b.county) return 1
+    if (a.precinct < b.precinct) return -1
+    if (a.precinct > b.precinct) return 1
+    return 0
+})
 // export clean JSON data
 let json = JSON.stringify(newJSONFile);
 fs.writeFileSync('./ignore/cleanData.json', json)
