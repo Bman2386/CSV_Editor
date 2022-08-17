@@ -6,7 +6,7 @@ const fs = require("fs");
 let filepath = "./ignore/"
 //////////////////////////////////////////////
 //filename of file to convert goes here
- fileName = "test2.csv"
+ fileName = "pen.csv"
 //////////////////////////////////////////////
 filepath += fileName
 csv = fs.readFileSync(filepath) 
