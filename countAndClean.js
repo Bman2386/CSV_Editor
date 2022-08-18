@@ -68,7 +68,7 @@ for (data in previous){
 for (data in newData){
     newJSONFile.push(newData[data])
 }
-// sort results by county
+// sort results by county -> Precinct
 newJSONFile.sort((a,b) => {
     if (a.county < b.county) return -1
     if (a.county > b.county) return 1
