@@ -6,7 +6,7 @@ const fs = require("fs");
 let filepath = "./ignore/"
 //////////////////////////////////////////////
 //filename of file to convert goes here
- fileName = "pen.csv"
+ fileName = "data.csv"
 //////////////////////////////////////////////
 filepath += fileName
 csv = fs.readFileSync(filepath) 
@@ -50,22 +50,21 @@ for (let i = 1; i < array.length - 1; i++) {
   // traverse to a String s
  
   let flag = 0
-  for (let ch of str) {
+  for (ch of str) {
     if (ch === '"' && flag === 0) {
       flag = 1
     }
-    else if (ch === '"' && flag == 1) flag = 0
-    if (ch === ', ' && flag === 0) ch = '|'
+    else if (ch === '"' && flag === 1) {
+      flag = 0
+    }
+    if (ch === ',' && flag === 0) ch = '|'
     if (ch !== '"') s += ch
   }
- 
+
   // Split the string using pipe delimiter |
   // and store the values in a properties array
   let properties = s.split("|")
-  if (properties.length < 2){
-    properties = s.split(',')
-    
-  }
+
   if (properties[0].includes('\n')){
     let newProp = properties[0].split('\n')
     properties[0] = newProp[1]

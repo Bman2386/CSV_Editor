@@ -1,6 +1,6 @@
 console.log('cleaning data')
 /////////////////////
-const file = 'pen.json'
+const file = 'data.json'
 // require files here!
 ///////////////////////
 //Don't change this import though!
