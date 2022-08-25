@@ -1,6 +1,6 @@
 console.log('counting data')
 // require files here!
-const dataToCount = require('./ignore/report.json')
+const dataToCount = require('./ignore/data.json')
 //Don't change this import though!
 const fs = require("fs")
 
@@ -75,25 +75,34 @@ const countAndReturnData =(table)=> {
                 completion_percent: 0,
                 event_date: []
             }
-            
             volunteer[person][type[0]] = 1
             volunteer[person].event_date.push(type[1])
         } else {
             volunteer[person][type[0]]++ 
             volunteer[person].event_date.push(type[1])
         }
+        if (type[0] === 'shifts_completed') volunteer[person].sign_ups++
     }
     return volunteer
 }
 
 const helper=(person)=> {
-    let lastWeek = new Date(Date.now() - 12096e5)
+    let now = new Date()
+    let period = new Date(now.setDate(now.getDate() - 30))
     let eventDate = new Date(person["Event Date"])
-    let date = eventDate > lastWeek ? true : false
+    let date = eventDate >= period && person.Status === 'Completed' ? true : false
     if (person.Status === 'Completed') return [`shifts_completed`, date]
     return ['sign_ups', date]
 }
 
+const sortData = (array)=> {
+    array.sort((a,b)=> {
+        if (a.Completion_Percent > b.Completion_Percent) return -1
+        if (a.Completion_Percent < b.Completion_Percent ) return 1          
+        return 0
+    })
+    return array
+    }
 const myCount = (item, array) => {
     let count = 0
     for (i of array){
@@ -104,10 +113,13 @@ const myCount = (item, array) => {
     return 'Inactive'
 }
 const countAndReturnDataAsJson = (data) => {
-    const newJsonFile = []
+    
+    const active = []
+    const almost = []
+    const inactive = []
     const volunteers = countAndReturnData(data)
     for (person in volunteers){
-        volunteers[person].completion_percent = ((volunteers[person].shifts_completed + 1) / (volunteers[person].sign_ups + 1))
+        volunteers[person].completion_percent = ((volunteers[person].shifts_completed) / (volunteers[person].sign_ups))
         let record = {
             Van_Id: volunteers[person].vanId,
             Full_Name: volunteers[person].name,
@@ -116,17 +128,17 @@ const countAndReturnDataAsJson = (data) => {
             Completion_Percent: volunteers[person].completion_percent,
             status: myCount(true, volunteers[person].event_date)
         }
-        
-       newJsonFile.push(record)
+        if (record.status === 'Active') active.push(record)
+        if (record.status === 'Almost Active') almost.push(record)
+        if (record.status === 'Inactive') inactive.push(record)
     }   
- 
-    newJsonFile.sort((a,b)=> {
-            if (a.Completion_Percent > b.Completion_Percent && a.status === 'Active') return -1
-            if (a.Completion_Percent > b.Completion_Percent && a.status === 'Almost Active' && b.status !== 'Active') return -1
-            
-            if (a.Completion_Percent < b.Completion_Percent) return 1
-            return 0
-        })
+    const tier1 = sortData(active)
+    const tier2 = sortData(almost)
+    const tier3 = sortData(inactive)
+
+    const newJsonFile = [...tier1, ...tier2, ...tier3]
+    
+  
     
     const json = JSON.stringify(newJsonFile)
     fs.writeFileSync('./ignore/cleanData.json', json)
