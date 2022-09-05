@@ -10,7 +10,8 @@
     "cc": "node countAndClean.js",
     "count": "node countData.js",
     "csv": "node convertToCSV.js",
-    "match": "node match.js" 
+    "match": "node match.js",
+    "pre": "node pre_match.js"
   },
   "keywords": [],
   "author": "",
