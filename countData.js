@@ -136,6 +136,8 @@ const countAndReturnDataAsJson = (data) => {
     const tier2 = sortData(almost)
     const tier3 = sortData(inactive)
 
+    console.log(`Active =${tier1.length}, Almost =${tier2.length}, Inactive =${tier3.length}`)
+    
     const newJsonFile = [...tier1, ...tier2, ...tier3]
     
   
