@@ -67,6 +67,10 @@ const countAndReturnData =(table)=> {
         let person = table[data].VANID
         let type = helper(table[data])
         if (!volunteer[person]){
+            if (table[data]['Contact Name']=== "[Unknown]") {
+                table[data]['Contact Name'] = []
+                table[data]['Contact Name'] = ['Unknown', 'Unknown']
+            }
             volunteer[person] = {
                 vanId: person,
                 name: table[data]['Contact Name'].join(','),
