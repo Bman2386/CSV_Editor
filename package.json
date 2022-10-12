@@ -12,7 +12,9 @@
     "csv": "node convertToCSV.js",
     "match": "node match.js",
     "pre": "node pre_match.js",
-    "is": "node is_identity.js"
+    "is": "node is_identity.js",
+    "prec": "node matchPrecincts.js",
+    "pack": "node no_pack.js"
   },
   "keywords": [],
   "author": "",
