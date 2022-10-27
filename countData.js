@@ -64,6 +64,9 @@ Wrong Number ${wrongNum}`)
 const countAndReturnData =(table)=> {
     const volunteer = {}
     for (data in table){
+        if (table[data]["DCCC Volunteer Organizing Turf: DCCC Volunteer Organizer"] !== 'R7') {
+            continue
+        }
         let person = table[data].VANID
         let type = helper(table[data])
         if (!volunteer[person]){

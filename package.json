@@ -14,7 +14,9 @@
     "pre": "node pre_match.js",
     "is": "node is_identity.js",
     "prec": "node matchPrecincts.js",
-    "pack": "node no_pack.js"
+    "pack": "node no_pack.js",
+    "shift": "node findShifts.js",
+    "event": "node findEvents.js"
   },
   "keywords": [],
   "author": "",

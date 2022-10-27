@@ -46,12 +46,12 @@ if (data[0]['Mail Name'] !== undefined) {
     let nameMatch = match[nameArray[1][0]]
     if (nameArray.length > 1 && address.length > 0){
       for (id in nameMatch){
-        let mCity = match[id].voting_city
-        let mAddress =  match[id].voting_street_address
-        let name = match[id].last_name + match[id].first_name
+        let mCity = nameMatch[id].voting_city
+        let mAddress =  nameMatch[id].voting_street_address
+        let name = nameMatch[id].last_name + nameMatch[id].first_name
        
         if ((address === mAddress || city === mCity) && (name.includes(nameArray[1].toUpperCase())) || name.includes(nameArray[0].toUpperCase())){
-            new_data["van_id"] = match[id].myv_van_id
+            new_data["van_id"] = nameMatch[id].myv_van_id
             new_data['first_name'] = nameArray[0]
             new_data['last_name'] = nameArray[1]
             new_data['data_address'] = address
