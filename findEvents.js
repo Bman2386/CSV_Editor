@@ -99,22 +99,29 @@ for (id in data){
         let curr = event[name].count + 1
         event[name].count = curr
     }
-    if (!event[name]){
+    if (!event[name] && data[id]['Status'] === 'Completed'){
         event[name] = {
             event_name: name,
             count: 1,
             organizer: `${num2}${num1}`,
-            date: data[id]['Event Date']
+            date: data[id]['Event Date'],
+            type: data[id]['Event Type']
         }
 
     }
 }
 
 for (e in event){
-    if ((event[e].organizer.includes('R1') || event[e].organizer.includes('R2')) 
-    && event[e].date === `${year}-${month}-${day}`)
+    if ((event[e].organizer.includes('R1') || event[e].organizer.includes('R2')) && event[e].type === 'Canvass' )
+    // && event[e].date === `${year}-${month}-${day}`)
     countedData.push(event[e])
 }
+
+countedData.sort((a,b) => {
+    if (a.date > b.date) return -1
+    if (a.date < b.date) return 1
+    return 0
+})
 // console.log('ping', ping, "pong", pong)
 // const countedData = [R1V2, R1V3, R2V6, R2V7, R3, R5, R6, R7]
 
